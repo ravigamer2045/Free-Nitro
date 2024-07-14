@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Nitro 2.0</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #7289da;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+        label {
+            display: block;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #7289da;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #5b6eae;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+    <script>
+        function generateCode() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let code = '';
+            for (let i = 0; i < 16; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return code;
+        }
+
+        function generateGiftLink() {
+            const nitroType = document.querySelector('input[name="nitro"]:checked').value;
+            const code = generateCode();
+            const link = `https://discord.com/gifts/${code}`;
+            document.getElementById('output').innerText = `Seu código é: ${link} (${nitroType})`;
+        }
+
+        function clearOutput() {
+            document.getElementById('output').innerText = '';
+        }
+    </script>
+</head>
+<body>
+    <h1>Gerador de Códigos do Discord</h1>
+    <form onsubmit="event.preventDefault(); generateGiftLink();">
+        <label>
+            <input type="radio" name="nitro" value="Nitro Mensal" required> Nitro Mensal
+        </label>
+        <label>
+            <input type="radio" name="nitro" value="Nitro Anual" required> Nitro Anual
+        </label>
+        <button type="submit">Gerar Código</button>
+        <button type="button" onclick="clearOutput()">Limpar</button>
+    </form>
+    <p id="output"></p>
+</body>
+</html>
